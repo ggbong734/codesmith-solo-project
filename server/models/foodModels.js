@@ -1,5 +1,7 @@
 const { createHtmlTagObject } = require('html-webpack-plugin');
+require('dotenv').config();
 const { Pool } = require('pg');
+
 
 const PG_URI = `postgres://${process.env.POSTGRESQL_USER}:${process.env.POSTGRESQL_PASSWORD}@kashin.db.elephantsql.com/${process.env.POSTGRESQL_USER}`;
 
@@ -8,10 +10,11 @@ const pool = new Pool({
   connectionString: PG_URI
 });
 
+
 // https://api.elephantsql.com/console/d4887853-9897-45e3-8ea5-f0c5ef95c71a/queries?
 // enter here
 // CREATE TABLE intake (
-//   id INT PRIMARY KEY,
+//   id SERIAL PRIMARY KEY,
 //   quantity INT,
 //   unit VARCHAR(50),
 //   item VARCHAR(50),
@@ -39,9 +42,14 @@ const pool = new Pool({
 //  zn NUMERIC(7, 3),
 // )
 
-// Adding some notes about the database here will be helpful for future you or other developers.
-// Schema for the database can be found below:
-// https://github.com/CodesmithLLC/unit-10SB-databases/blob/master/docs/assets/images/schema.png
+// CREATE TABLE settings (
+//     setting_id SERIAL PRIMARY KEY,
+//     date TIMESTAMP,
+//     user_id INT DEFAULT NULL,
+//     gender VARCHAR(50),
+//     agegroup VARCHAR(50),
+//     activity VARCHAR(50))
+
 
 // We export an object that contains a property called query,
 // which is a function that returns the invocation of pool.query() after logging the query
@@ -52,50 +60,3 @@ module.exports = {
     return pool.query(text, params, callback);
   }
 };
-
-// const mongoose = require('mongoose');
-// require('dotenv').config();
-
-// const MONGO_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@unit10database.sfrfi.mongodb.net/nutrition-tracker?retryWrites=true&w=majority`;
-
-// mongoose.connect(MONGO_URI, {
-//     // options for the connect method to parse the URI
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//     // sets the name of the DB that our collections are part of
-//     dbName: 'nutrition-tracker'
-// })
-//     .then(() => console.log('Connected to Mongo DB.'))
-//     .catch(err => console.log(err));
-
-// const Schema = mongoose.Schema;
-// console.log('Schema initiated mongoose');
-
-// // sets a schema for the 'species' collection
-// const speciesSchema = new Schema({
-//     name: String,
-//     classification: String,
-//     average_height: String,
-//     average_lifespan: String,
-//     hair_colors: String,
-//     skin_colors: String,
-//     eye_colors: String,
-//     language: String,
-//     homeworld: String,
-//     homeworld_id: {
-//         // type of ObjectId makes this behave like a foreign key referencing the 'planet' collection
-//         type: Schema.Types.ObjectId,
-//         ref: 'planet'
-//     }
-// });
-
-// // creats a model for the 'species' collection that will be part of the export
-// const Species = mongoose.model('species', speciesSchema);
-
-// // exports all the models in an object to be used in the controller
-// module.exports = {
-//     Species,
-//     Planet,
-//     Film,
-//     Person
-// };

@@ -1,99 +1,142 @@
 const db = require('../models/foodModels');
 const pgp = require('pg-promise');
-const { response } = require('../server');
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
+// const { response } = require('../server');
 
 const foodController = {};
 
-foodController.getCharacters = async (req, res, next) => {
+foodController.getIntakeToday = async (req, res, next) => {
     try {
         const sqlQuery = `
-    SELECT p.*, s.name AS species, pl.name AS homeworld
-    FROM people p
-    LEFT JOIN species s ON p.species_id = s._id
-    LEFT JOIN planets pl ON p.homeworld_id = pl._id;
+    SELECT *
+    FROM intake
+    WHERE DATE(date) = CURRENT_DATE;
     `;
         const data = await db.query(sqlQuery);
-        res.locals.characters = data.rows;
-
-        // query to get people_in_films with person and film ids, person name, and movie title
-        const filmsQuery = `
-    SELECT p._id AS person_id, p.name, f._id AS film_id, f.title
-    FROM people_in_films pif
-    JOIN films f ON pif.film_id = f._id
-    JOIN people p ON pif.person_id = p._id;
-    `;
-
-        const people_in_films = await db.query(filmsQuery);
-        const pif = people_in_films.rows;
-
-        //go through each char in characters
-        //append all the films and ids they have been in
-        for (const char of res.locals.characters) {
-            char.films = [];
-            for (const pf of pif) {
-                if (char._id === pf.person_id) {
-                    char.films.push({ id: pf.film_id, title: pf.title });
-                }
-            }
-        }
+        console.log('completed sql query for getIntake');
+        res.locals.intakeToday = data.rows;
         return next();
     }
     catch (err) {
         return next({
-            log: `Error in foodController.getCharacters : ${err}`,
-            message: { err: 'Error occurred in foodController.getCharacters' },
+            log: `Error in foodController.getIntakeToday : ${err}`,
+            message: { err: 'Error occurred in foodController.getIntakeToday' },
+        });
+    }
+};
+
+foodController.addIntake = async (req, res, next) => {
+    function getFoodInfo(consum) {
+        const params = {
+            app_id: process.env.EDAM_API_ID,
+            app_key: process.env.EDAM_API_KEY,
+            nutrition_type: "logging",
+            ingr: consum.quantity + " " + consum.unit + " of " + consum.item
+        };
+        let url = "https://api.edamam.com/api/nutrition-data"
+        url += "?" + (new URLSearchParams(params)).toString();
+        return fetch(url)
+            .then(response => response.json())
+            .then(data => data)
+            .catch(err => console.log(err));
+    }
+
+    console.log('in addIntake');
+    try {
+        const foodItem = req.body; // consists of quantity, unit, and item keys
+        const foodData = await getFoodInfo(foodItem);
+
+        const { quantity, unit, item } = foodItem;
+        const {
+            calories, totalNutrients, totalDaily
+        } = foodData;
+
+        const ca = totalDaily.CA.quantity;
+        const chocdf = totalDaily.CHOCDF.quantity;
+        const chole = totalDaily.CHOLE.quantity;
+        const enerc_kcal = totalDaily.ENERC_KCAL.quantity;
+        const fasat = totalDaily.FASAT.quantity;
+        const fat = totalDaily.FAT.quantity;
+        const fe = totalDaily.FE.quantity;
+        const foldfe = totalDaily.FOLDFE.quantity;
+        const k = totalDaily.K.quantity;
+        const mg = totalDaily.MG.quantity;
+        const na = totalDaily.NA.quantity;
+        const nia = totalDaily.NIA.quantity;
+        const p = totalDaily.P.quantity;
+        const procnt = totalDaily.PROCNT.quantity;
+        const ribf = totalDaily.RIBF.quantity;
+        const thia = totalDaily.THIA.quantity;
+        const vitb6a = totalDaily.VITB6A.quantity;
+        const vitb12 = totalDaily.VITB12.quantity;
+        const vitc = totalDaily.VITC.quantity;
+        const vitd = totalDaily.VITD.quantity;
+        const zn = totalDaily.ZN.quantity;
+
+
+        const sqlQuery = `
+          INSERT INTO intake (quantity, unit, item, date,
+            ca, chocdf, chole, enerc_kcal, fasat, fat, fe, foldfe,
+            k, mg, na, nia, p, procnt, ribf, thia, vitb6a, vitb12,
+            vitc, vitd, zn)
+          VALUES ($1, $2, $3, CURRENT_TIMESTAMP, $4, $5, $6, $7, $8, $9, $10,
+                  $11, $12, $13, $14, $15, $16, $17, $18, $19,
+                  $20, $21, $22, $23, $24)
+          RETURNING id, quantity, unit, item, CURRENT_TIMESTAMP,
+          ca, chocdf, chole, enerc_kcal, fasat, fat, fe, foldfe,
+          k, mg, na, nia, p, procnt, ribf, thia, vitb6a, vitb12,
+          vitc, vitd, zn
+          ;`;
+
+        const params = [quantity, unit, item,
+            ca, chocdf, chole, enerc_kcal, fasat, fat, fe, foldfe,
+            k, mg, na, nia, p, procnt, ribf, thia, vitb6a, vitb12,
+            vitc, vitd, zn];
+
+        const newIntakeData = await db.query(sqlQuery, params);
+        console.log('returned intake data is: ', newIntakeData.rows[0]);
+        res.locals.newIntake = newIntakeData.rows[0];
+        // const id = newIntakeData.rows[0].id;
+
+        console.log('moving on to next');
+        return next();
+    }
+    catch (err) {
+        return next({
+            log: `Error in foodController.addIntake : ${err}`,
+            message: { err: 'Error occurred in foodController.addIntake' },
+        });
+    }
+};
+
+foodController.deleteIntake = async (req, res, next) => {
+    try {
+        //check if passed in id exists
+        if (!req.body.id) {
+            return next({
+                log: 'no id in body for in foodController.deleteIntake',
+                message: { err: 'no id given for foodController.deleteIntake' },
+            });
+        }
+        const deleteMainQuery = `
+        DELETE FROM intake
+        WHERE id = $1
+      ;`;
+        const params = [req.body.id];
+
+        const delIntakeData = await db.query(deleteMainQuery, params);
+
+        console.log('data from deleted intake is: ', delIntakeData.rows);
+        res.locals.deletedIntake = delIntakeData.rows;
+        return next();
+    }
+
+    catch (err) {
+        return next({
+            log: `Error in foodController.deleteIntake: ${err}`,
+            message: { err: 'Error in foodController.deleteIntake' },
         });
     }
 };
 
 module.exports = foodController;
-
-
-// starWarsController.addCharacter = async (req, res, next) => {
-//     try {
-//       // write code here
-//       // console.log('req.body is: ', req.body);
-//       const {
-//         name, gender, species, species_id, birth_year, eye_color,
-//         skin_color, hair_color, mass, height, homeworld, homeworld_id,
-//         films
-//       } = req.body;
-
-//       const sqlQuery = `
-//       INSERT INTO people (name, mass, hair_color, skin_color,
-//         eye_color, birth_year, gender, species_id, homeworld_id,
-//         height)
-//       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-//       RETURNING _id, name, mass, hair_color, skin_color,
-//                 species_id, homeworld_id
-//       ;`;
-
-//       const params = [name, mass, hair_color, skin_color,
-//         eye_color, birth_year, gender, species_id, homeworld_id,
-//         height];
-
-//       const newCharData = await db.query(sqlQuery, params);
-//       // console.log('returned data rows is: ', newCharData.rows[0]);
-//       res.locals.newCharacter = newCharData.rows[0];
-//       res.locals.newCharacter.films = films;
-//       const id = newCharData.rows[0]._id;
-
-//       // save each character's films into SQL database
-//       for (const film of res.locals.newCharacter.films) {
-//         const innerQuery = `
-//           INSERT INTO people_in_films ( person_id, film_id)
-//           VALUES ($1, $2)
-//           `;
-//         const params2 = [id, film.id];
-//         const savedFilms = await db.query(innerQuery, params2);
-//       }
-
-//       console.log('moving on to next');
-//       return next();
-//     }
-//     catch (err) {
-//       return next({
-//         log: `Error in starWarsController.addCharacter : ${err}`,
-//         message: { err: 'Error occurred in starWarsController.addCharacter' },
-//       });
-//     }
