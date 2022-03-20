@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { Sidebar } from './components/Sidebar';
+import { Header } from './components/Header'
+import { Container } from './components/Container';
 
 export const App = () => {
-
     function getFoodInfo() {
         console.log('print env:', process.env.EDAM_API_ID);
         const params = {
@@ -18,13 +20,14 @@ export const App = () => {
             .then(data => console.log(data))
             .catch(err => console.log(err));
     }
-
+    //<div onClick={() => getFoodInfo()} className='font-bold cursor-pointer text-gray-400'>Calorie Tracker</div>
 
     return (
-        <div>
-            <div onClick={() => getFoodInfo()} className='font-bold cursor-pointer text-gray-400'>Calorie Tracker</div>
-            <div className="border-b p-3 border-gray-100">
-                <p className="text-3xl font-bold underline">Elrond eGold </p>
+        <div className='flex'>
+            <Sidebar />
+            <div className='w-screen'>
+                <Header />
+                <Container />
             </div>
         </div>
     )

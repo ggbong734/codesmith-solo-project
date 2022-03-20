@@ -75,20 +75,20 @@ foodController.addIntake = async (req, res, next) => {
 
 
         const sqlQuery = `
-          INSERT INTO intake (quantity, unit, item, date,
+          INSERT INTO intake (quantity, unit, item, date, calories,
             ca, chocdf, chole, enerc_kcal, fasat, fat, fe, foldfe,
             k, mg, na, nia, p, procnt, ribf, thia, vitb6a, vitb12,
             vitc, vitd, zn)
           VALUES ($1, $2, $3, CURRENT_TIMESTAMP, $4, $5, $6, $7, $8, $9, $10,
                   $11, $12, $13, $14, $15, $16, $17, $18, $19,
-                  $20, $21, $22, $23, $24)
-          RETURNING id, quantity, unit, item, CURRENT_TIMESTAMP,
+                  $20, $21, $22, $23, $24, $25)
+          RETURNING id, quantity, unit, item, CURRENT_TIMESTAMP, calories,
           ca, chocdf, chole, enerc_kcal, fasat, fat, fe, foldfe,
           k, mg, na, nia, p, procnt, ribf, thia, vitb6a, vitb12,
           vitc, vitd, zn
           ;`;
 
-        const params = [quantity, unit, item,
+        const params = [quantity, unit, item, calories,
             ca, chocdf, chole, enerc_kcal, fasat, fat, fe, foldfe,
             k, mg, na, nia, p, procnt, ribf, thia, vitb6a, vitb12,
             vitc, vitd, zn];
@@ -112,6 +112,7 @@ foodController.addIntake = async (req, res, next) => {
 foodController.deleteIntake = async (req, res, next) => {
     try {
         //check if passed in id exists
+        console.log('req.body is: ', req.body);
         if (!req.body.id) {
             return next({
                 log: 'no id in body for in foodController.deleteIntake',

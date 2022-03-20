@@ -19,6 +19,7 @@ const pool = new Pool({
 //   unit VARCHAR(50),
 //   item VARCHAR(50),
 //   date TIMESTAMP,
+//   calories INTEGER,
 //   ca NUMERIC(7, 3),
 //   chocdf NUMERIC(7, 3),
 //   chole NUMERIC(7, 3),

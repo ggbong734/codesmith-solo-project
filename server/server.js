@@ -4,6 +4,15 @@ const path = require('path');
 const foodRouter = require('./routes/intake');
 const settingRouter = require('./routes/setting');
 
+const cors = require("cors");
+const corsOptions = {
+    origin: '*',
+    credentials: true,            //access-control-allow-credentials:true
+    optionSuccessStatus: 200,
+}
+
+app.use(cors(corsOptions)) // Use this after the variable declaration
+
 /**
  * handle parsing request body
  */

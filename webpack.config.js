@@ -5,7 +5,7 @@ const webpack = require('webpack');
 
 module.exports = {
     mode: process.env.NODE_ENV,
-    entry: './src/index.js',
+    entry: ['babel-regenerator-runtime', './src/index.js'],
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
