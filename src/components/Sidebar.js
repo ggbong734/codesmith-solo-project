@@ -8,7 +8,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
 
 export const Sidebar = () => {
     return (
-        <div className='md:w-3/12 w-6/12 h-screen shadow-2xl '>
+        <div className='md:w-3/12 w-6/12 h-auto shadow-2xl '>
             <div className="border-b py-3 mt-1 flex justify-around">
                 <p className='text-xl font-semibold'>nutrition-tracker v1.0.0</p>
             </div>

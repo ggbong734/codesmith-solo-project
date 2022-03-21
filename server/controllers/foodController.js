@@ -140,4 +140,25 @@ foodController.deleteIntake = async (req, res, next) => {
     }
 };
 
+foodController.getLast7DaysCalories = async (req, res, next) => {
+    try {
+        const sqlQuery = `
+    SELECT DATE(date), SUM(calories)
+    FROM intake
+    WHERE DATE(date) > CURRENT_DATE - INTERVAL '7 days'
+    GROUP BY DATE(date);
+    `;
+        const data = await db.query(sqlQuery);
+        console.log('completed sql query for getLast7DaysCalories');
+        res.locals.last7DaysCalories = data.rows;
+        return next();
+    }
+    catch (err) {
+        return next({
+            log: `Error in foodController.getlast7DaysCalories : ${err}`,
+            message: { err: 'Error occurred in foodController.getlast7DaysCalories' },
+        });
+    }
+};
+
 module.exports = foodController;
