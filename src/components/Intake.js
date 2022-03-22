@@ -19,16 +19,16 @@ export const Intake = ({ intake, setIntakes, intakes }) => {
     };
 
     return (
-        <li className='px-6 py-2 border-b border-gray-200 w-full hover:bg-gray-100 hover:text-gray-500
+        <li className='px-6 py-1.5 border-b border-gray-200 w-full hover:bg-orange-50 hover:text-gray-600
         focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600
         transition
         duration-500'>
             <div className="flex flex-row justify-between items-center">
-                <span className='text-xl'>{intake.item}, {intake.quantity} {intake.unit} </span>
+                <span className='text-lg'>{intake.item}, {intake.quantity} {intake.unit} </span>
                 <div>
                     <span className='text-gray-500 text-lg'>{intake.calories} cals</span>
                     <button onClick={() => deleteIntake(intake.id)}
-                        className="text-2xl text-red-300 py-1 px-2 ml-6 cursor-pointer border rounded-md border-gray-200 bg-red-100 hover:bg-red-400 hover:text-gray-100
+                        className="text-xl text-red-300 py-0.5 px-2 ml-6 cursor-pointer border rounded-md border-gray-200 bg-red-100 hover:bg-red-400 hover:text-gray-100
                 focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600
                 transition
                 duration-500 ">x</button>

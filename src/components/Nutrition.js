@@ -8,7 +8,7 @@ export const Nutrition = ({ nutrition, dv, corrFactor }) => {
     transition
     duration-500'>
             <div className="flex flex-row justify-between items-center">
-                <span className='text-md'>{nutrition} </span>
+                <span className='text-lg text-gray-700'>{nutrition} </span>
                 <div>
                     {percentDV > 120 ?
                         <span className='text-purple-500 font-semibold text-lg'>{percentDV}%</span>

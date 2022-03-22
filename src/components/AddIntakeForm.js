@@ -24,7 +24,7 @@ export const AddIntakeForm = ({ intakes, setIntakes }) => {
                     setIntakes([...intakes, data])
                     document.getElementById('foodForm').value = '';
                     document.getElementById('quantityForm').value = '';
-                    document.getElementById('unitForm   ').value = '';
+                    document.getElementById('unitForm').value = '';
                 })
                 .catch(err => {
                     console.log(err);

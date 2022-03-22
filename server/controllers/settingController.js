@@ -12,7 +12,7 @@ settingController.getLastSetting = async (req, res, next) => {
             LIMIT 1;
             `;
         const data = await db.query(sqlQuery);
-        res.locals.lastSetting = data.rows;
+        res.locals.lastSetting = data.rows[0];
         return next();
     }
     catch (err) {
@@ -26,7 +26,7 @@ settingController.getLastSetting = async (req, res, next) => {
 settingController.addSetting = async (req, res, next) => {
     try {
         const {
-            gender, ageGroup, activity
+            gender, age, activity
         } = req.body;
 
         const sqlQuery = `
@@ -35,7 +35,7 @@ settingController.addSetting = async (req, res, next) => {
           RETURNING setting_id, date, user_id, gender, agegroup, activity
           ;`;
 
-        const params = [gender, ageGroup, activity];
+        const params = [gender, age, activity];
 
         const newSettingData = await db.query(sqlQuery, params);
         console.log('returned setting data is: ', newSettingData.rows[0]);

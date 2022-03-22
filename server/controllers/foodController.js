@@ -150,6 +150,10 @@ foodController.getLast7DaysCalories = async (req, res, next) => {
     `;
         const data = await db.query(sqlQuery);
         console.log('completed sql query for getLast7DaysCalories');
+        for (let i = 0; i < data.rows.length; i++) {
+            let currDate = new Date(data.rows[i].date)
+            data.rows[i].date = currDate.setDate(currDate.getDate() - 1);
+        }
         res.locals.last7DaysCalories = data.rows;
         return next();
     }

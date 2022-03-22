@@ -2,7 +2,7 @@ import React from 'react'
 import { Nutrition } from './Nutrition';
 
 export const NutritionCard = ({ intakes, calorieBudget }) => {
-    const corrFactor = calorieBudget / 2000;
+    const corrFactor = 2000 / calorieBudget;
     const nutritions = {
         ca: "Calcium",
         chocdf: "Carbohydrate",
