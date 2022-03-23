@@ -34,7 +34,7 @@ export const AddIntakeForm = ({ intakes, setIntakes }) => {
 
 
     return (
-        <div className="flex flex-row justify-center items-center w-full">
+        <div id="AddIntakeForm" className="flex flex-row justify-center items-center w-full">
             <div className="mb-3">
                 <input
                     type="text"
@@ -111,8 +111,8 @@ export const AddIntakeForm = ({ intakes, setIntakes }) => {
                 <div className="text-md text-gray-500 mt-1">Unit</div>
             </div>
             <button onClick={() => addIntake()}
-                className="text-lg font-bold text-blue-500 py-3 px-2 ml-6 cursor-pointer border rounded-md border-gray-200 bg-gray-100 hover:bg-blue-500 hover:text-gray-100
-                focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600
+                className="text-lg font-bold text-white py-3 px-2 ml-6 cursor-pointer border rounded-md border-gray-200 bg-blue-400 hover:bg-blue-600 hover:text-white
+                focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-blue-600
                 transition
                 duration-500 ">Add Intake</button>
         </div>

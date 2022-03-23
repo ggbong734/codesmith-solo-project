@@ -46,7 +46,7 @@ export const SettingsModal = ({ setting, setSetting }) => {
                     </div>
                     <div className="modal-body relative p-4">
                         <div>
-                            <p className='pt-4 pb-2 ml-4 font-bold'>Gender</p>
+                            <p className='pt-4 pb-2 ml-4 font-bold text-xl text-gray-700'>Gender</p>
                             <div className="flex justify-center">
                                 <div className="form-check form-check-inline">
                                     <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-400 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
@@ -59,7 +59,7 @@ export const SettingsModal = ({ setting, setSetting }) => {
                                     <label className="form-check-label inline-block text-gray-800" htmlFor="Female">Female</label>
                                 </div>
                             </div>
-                            <p className='pt-6 pb-2 ml-4 font-bold text-xl'>Age Group</p>
+                            <p className='pt-6 pb-2 ml-4 font-bold text-xl text-gray-700'>Age Group</p>
                             <div className="flex justify-center">
                                 <div>
                                     <div className="form-check py-0.5">
@@ -106,7 +106,7 @@ export const SettingsModal = ({ setting, setSetting }) => {
                                     </div>
                                 </div>
                             </div>
-                            <p className='py-4 ml-4 font-bold'>Activity Level</p>
+                            <p className='py-4 ml-4 font-bold text-xl text-gray-700'>Activity Level</p>
                             <div className="flex justify-evenly">
                                 <div className="form-check form-check-inline">
                                     <input className="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-400 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"

@@ -19,7 +19,7 @@ export const Intake = ({ intake, setIntakes, intakes }) => {
     };
 
     return (
-        <li className='px-6 py-1.5 border-b border-gray-200 w-full hover:bg-orange-50 hover:text-gray-600
+        <li className='px-6 py-1.5 border-b border-gray-200 w-full hover:bg-gray-100 hover:text-gray-800
         focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600
         transition
         duration-500'>
