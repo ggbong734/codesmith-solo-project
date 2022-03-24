@@ -2,7 +2,6 @@ const db = require('../models/foodModels');
 const pgp = require('pg-promise');
 const bcrypt = require('bcryptjs');
 const SALT_WORK_FACTOR = 10;
-let salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
 
 const userController = {};
 
@@ -20,7 +19,9 @@ userController.createUser = async (req, res, next) => {
         VALUES ($1, $2)
             `;
 
+        let salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
         let hash = bcrypt.hashSync(password, salt);
+
         const params = [username, hash];
         console.log('hash to save: ', hash);
 
@@ -50,10 +51,12 @@ userController.verifyUser = async (req, res, next) => {
         const params = [username];
 
         const retrievedPassword = await db.query(sqlQuery, params);
-        console.log('returned hashed password is: ', retrievedPassword.rows[0]);
 
-        let hash = bcrypt.hashSync(password, salt);
-        res.locals.verifyUser = retrievedPassword.rows[0].password === hash;
+        console.log('database hash is: ', retrievedPassword.rows[0].password);
+
+        let verification = bcrypt.compareSync(password, retrievedPassword.rows[0].password);
+        console.log('result of verification is: ', verification);
+        res.locals.verifyUser = verification;
 
         console.log('verifyUser complete, result is: ', res.locals.verifyUser);
         return next();

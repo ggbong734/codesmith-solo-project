@@ -7,7 +7,6 @@ export const RegistrationPage = () => {
     const createUser = () => {
         let username = document.getElementById("usernameCreateUserForm").value;
         let password = document.getElementById("passwordCreateUserForm").value;
-        console.log('going to fetch now')
         fetch('http://localhost:3000/user/create', {
             method: 'POST',
             headers: {
@@ -16,7 +15,6 @@ export const RegistrationPage = () => {
             body: JSON.stringify({ "username": username, "password": password }),
         }).then(response => response.json())
             .then(data => {
-                console.log('successfully created user');
                 navigate("/login");
             })
             .catch(err => {
