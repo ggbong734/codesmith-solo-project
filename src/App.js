@@ -1,49 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import { Sidebar } from './components/Sidebar';
-import { Header } from './components/Header'
-import { Container } from './components/Container';
+import React, { useState } from 'react'
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { Home } from './components/Home';
+import { LoginForm } from './components/LoginForm';
+import { RegistrationPage } from './components/RegistrationPage';
+
 
 export const App = () => {
-    const [setting, setSetting] = useState([]);
-
-    useEffect(() => {
-        fetch(`http://localhost:3000/setting`)
-            .then(res => res.json())
-            .then(data => {
-                setSetting([data.gender, data.agegroup, data.activity]);
-            })
-            .catch(err =>
-                console.log(err)
-            )
-        return () => {
-        }
-    }, [JSON.stringify(setting)]);
-
-    // function getFoodInfo() {
-    //     console.log('print env:', process.env.EDAM_API_ID);
-    //     const params = {
-    //         app_id: process.env.EDAM_API_ID,
-    //         app_key: process.env.EDAM_API_KEY,
-    //         nutrition_type: "logging",
-    //         ingr: "1 cup of rice"
-    //         // ingr: consum.quantity + " " + consum.unit + " " + consum.item
-    //     };
-    //     let url = "https://api.edamam.com/api/nutrition-data"
-    //     url += "?" + (new URLSearchParams(params)).toString();
-    //     return fetch(url)
-    //         .then(response => response.json())
-    //         .then(data => console.log(data))
-    //         .catch(err => console.log(err));
-    // }
-    //<div onClick={() => getFoodInfo()} className='font-bold cursor-pointer text-gray-400'>Calorie Tracker</div>
-
-    return (setting.length === 0 ? null :
-        <div className='flex'>
-            <Sidebar setting={setting} setSetting={setSetting} />
-            <div className='w-screen'>
-                <Header />
-                <Container setting={setting} />
-            </div>
-        </div>
+    const [username, setUsername] = useState('');
+    return (
+        <BrowserRouter>
+            <Routes>
+                {/* <Route path="/login" element={<LoginForm setUsername={setUsername} />}></Route> */}
+                <Route path="/home" element={<Home username={username} />}></Route>
+                {/* <Route path="/register" element={<RegistrationPage />}></Route> */}
+            </Routes>
+        </BrowserRouter>
     )
 }

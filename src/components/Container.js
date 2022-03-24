@@ -107,9 +107,9 @@ export const Container = ({ setting }) => {
             <CalorieCard intakes={intakes} calorieBudget={calorieBudget} />
             <IntakeCard intakes={intakes} setIntakes={setIntakes} />
             <div>
-                {intakes.length && <NutritionCard intakes={intakes} calorieBudget={calorieBudget} />}
+                {intakes.length > 0 ? <NutritionCard intakes={intakes} calorieBudget={calorieBudget} /> : <div />}
             </div>
-            <CalorieChart last7DaysCalories={last7DaysCalories} />
+            <CalorieChart last7DaysCalories={last7DaysCalories} calorieBudget={calorieBudget} />
         </div>
     )
 }

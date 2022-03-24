@@ -2,7 +2,7 @@ import React from 'react'
 import { Chart as ChartJS } from 'chart.js/auto'
 import { Line } from 'react-chartjs-2';
 
-export const CalorieChart = ({ last7DaysCalories }) => {
+export const CalorieChart = ({ last7DaysCalories, calorieBudget }) => {
 
     // get last 7 dates
     function Last7Days() {
@@ -53,6 +53,27 @@ export const CalorieChart = ({ last7DaysCalories }) => {
                 pointRadius: 4,
                 pointHitRadius: 10,
                 data: history
+            },
+            {
+                label: 'Budget',
+                fill: false,
+                fillColor: '#C89D7C',
+                lineTension: 0.1,
+                borderColor: '#C89D7C',
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBorderColor: '#C89D7C',
+                pointBackgroundColor: '#C89D7C',
+                pointBorderWidth: 0,
+                pointHoverRadius: 1,
+                pointHoverBackgroundColor: '#C89D7C',
+                pointHoverBorderColor: '#C89D7C',
+                pointHoverBorderWidth: 0,
+                pointRadius: 1,
+                pointHitRadius: 1,
+                data: Array(7).fill(calorieBudget)
             }
         ]
     };

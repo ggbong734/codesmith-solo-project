@@ -3,6 +3,8 @@ const app = express();
 const path = require('path');
 const foodRouter = require('./routes/intake');
 const settingRouter = require('./routes/setting');
+const userRouter = require('./routes/user');
+
 
 const cors = require("cors");
 const corsOptions = {
@@ -38,7 +40,7 @@ if (process.env.NODE_ENV === 'production') {
  */
 app.use('/intake', foodRouter);
 app.use('/setting', settingRouter);
-
+app.use('/user', userRouter);
 
 // catch-all route handler for any requests to an unknown route
 app.use((req, res) => res.status(404).send('This is not the page you\'re looking for...'));

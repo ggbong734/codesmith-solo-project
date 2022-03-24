@@ -10,12 +10,16 @@ export const CalorieCard = ({ intakes, calorieBudget }) => {
                     CALORIES
                 </div>
                 <div className="w-full bg-gray-200 rounded-full">
-                    {percentOfBudget < 100 ?
-                        <div className="bg-blue-500 text-lg font-medium text-blue-100 text-center p-3 leading-none rounded-l-full"
-                            style={{ width: `${percentOfBudget}%` }}> {percentOfBudget}%</div>
-                        :
+                    {percentOfBudget > 100 ?
                         <div className="bg-red-500 text-lg font-medium text-red-100 text-center p-3 leading-none rounded-full"
                             style={{ width: `${Math.min(100, percentOfBudget)}%` }}> {percentOfBudget}%</div>
+                        :
+                        percentOfBudget <= 0.1 ?
+                            <div className="bg-blue-500 text-lg font-medium text-blue-100 text-center p-3 leading-none rounded-l-full"
+                                style={{ width: `${percentOfBudget}%` }}></div>
+                            :
+                            <div className="bg-blue-500 text-lg font-medium text-blue-100 text-center p-3 leading-none rounded-l-full"
+                                style={{ width: `${percentOfBudget}%` }}> {percentOfBudget}%</div>
                     }
                 </div>
                 <div className="flex px-6 pt-3 justify-evenly content-center">

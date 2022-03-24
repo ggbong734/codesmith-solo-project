@@ -3,12 +3,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const webpack = require('webpack');
 
+// on solving react router can't refresh error /can't get url other than home
+// https://stackoverflow.com/questions/43209666/react-router-v4-cannot-get-url
+// https://ui.dev/react-router-cannot-get-url-refresh
+
 module.exports = {
     mode: process.env.NODE_ENV,
     entry: ['babel-regenerator-runtime', './src/index.js'],
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
+        publicPath: '/',
     },
     module: {
         rules: [
@@ -46,6 +51,7 @@ module.exports = {
             directory: path.resolve(__dirname, 'dist'),
             publicPath: '/dist'
         },
+        historyApiFallback: true,
         compress: true,
         proxy: {
             '/api': 'http://localhost:3000/'

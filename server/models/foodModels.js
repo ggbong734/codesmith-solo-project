@@ -51,6 +51,12 @@ const pool = new Pool({
 //     agegroup VARCHAR(50),
 //     activity VARCHAR(50))
 
+// CREATE TABLE users (
+//     user_id SERIAL PRIMARY KEY,
+//     username VARCHAR,
+//     password VARCHAR)
+// )
+
 
 // We export an object that contains a property called query,
 // which is a function that returns the invocation of pool.query() after logging the query
