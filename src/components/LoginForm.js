@@ -1,3 +1,4 @@
+import { TramRounded } from '@mui/icons-material';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
@@ -14,8 +15,7 @@ export const LoginForm = ({ setUsername }) => {
             body: JSON.stringify({ "username": username, "password": password }),
         }).then(response => response.json())
             .then(verification => {
-                console.log('successfully logged in');
-                if (verification) {
+                if (verification === true) {
                     setUsername(username);
                     navigate("/home");
                 }
@@ -62,7 +62,7 @@ export const LoginForm = ({ setUsername }) => {
                                 <button
                                     type="button"
                                     className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-md leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-                                    onClick={() => { navigate('/home') }}
+                                    onClick={() => { verifyUser() }}
                                 >
                                     Login
                                 </button>

@@ -13,7 +13,7 @@ export const Header = ({ username }) => {
         <div className='flex shadow-sm border-b border-l-1 p-3.5 justify-between'>
             <div className="flex space-x-3">
                 <DashboardIcon className="text-emerald-500" />
-                <p className='text-lg'>Welcome {username}</p>
+                <p className='text-lg'>Welcome <span className='text-orange-700 font-bold'>{username}</span></p>
                 <p>  </p>
                 <CalendarMonthIcon className="text-blue-500" />
                 <p className='text-lg'>{today}</p>
