@@ -2,7 +2,6 @@ import React from 'react'
 import { Intake } from './Intake'
 import { AddIntakeForm } from './AddIntakeForm';
 
-
 export const IntakeCard = ({ intakes, setIntakes }) => {
     return (
         <div className="flex flex-col bg-gray-50 rounded overflow-hidden shadow-lg mx-4 my-2 px-4 py-2">
@@ -12,11 +11,18 @@ export const IntakeCard = ({ intakes, setIntakes }) => {
                 </div>
             </div >
             <div className='flex flex-col items-center mb-5'>
-                <ul className="bg-white rounded-lg border border-gray-200 w-2/5  text-gray-900">
-                    {intakes.map((intake) => (
-                        <Intake key={intake.id} intake={intake} setIntakes={setIntakes} intakes={intakes} />
-                    ))}
-                </ul>
+                {intakes.length > 0 &&
+                    <ul className="bg-gradient-to-r from-orange-100 to-amber-100 rounded-lg border border-gray-200 w-1/2 text-gray-900">
+                        <ul className="bg-white rounded-lg border border-gray-200 m-1 text-gray-900">
+                            {intakes.map((intake, index) => (
+                                index % 2 === 0 ?
+                                    <Intake key={intake.id} intake={intake} setIntakes={setIntakes} intakes={intakes} bgColor={'bg-white'} />
+                                    :
+                                    <Intake key={intake.id} intake={intake} setIntakes={setIntakes} intakes={intakes} bgColor={'bg-slate-100'} />
+                            ))}
+                        </ul>
+                    </ul>
+                }
             </div>
             <AddIntakeForm intakes={intakes} setIntakes={setIntakes} />
         </div>
