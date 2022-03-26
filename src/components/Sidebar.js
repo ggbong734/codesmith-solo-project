@@ -41,7 +41,7 @@ export const Sidebar = ({ setting, setSetting }) => {
                 <div className='space-y-6'>
                     <h1 className='text-xl text-gray-400 text-center mb-4'>Menu</h1>
                     <div className="">
-                        <div className="flex p-3 text-xl text-gray-700 space-x-4 0 hover:bg-gray-100 hover:text-blue-700 cursor-pointer">
+                        <div className="flex p-3 text-xl text-gray-700 space-x-4 0 hover:bg-gray-200 hover:text-blue-700 cursor-pointer">
                             <SettingsAccessibilityIcon className="text-gray-300" style={{ color: "purple" }} />
                             <button className='' data-bs-toggle="modal" data-bs-target="#settingsModal" type='button'>Settings</button>
                             <SettingsModal setting={setting} setSetting={setSetting} />
@@ -49,21 +49,21 @@ export const Sidebar = ({ setting, setSetting }) => {
                     </div>
                 </div>
                 <div className="">
-                    <div className="flex p-3 text-xl text-gray-700 space-x-4 0 hover:bg-gray-100 hover:text-blue-600 cursor-pointer">
+                    <div className="flex p-3 text-xl text-gray-700 space-x-4 0 hover:bg-gray-200 hover:text-blue-600 cursor-pointer">
                         <FastfoodIcon className="text-gray-300" style={{ color: "purple" }} />
                         <button onClick={() => document.getElementById('AddIntakeForm').scrollIntoView({ behavior: "smooth", block: "center" })}
                             className='text-gray-600'>Add Intake</button>
                     </div>
                 </div>
                 <div className="">
-                    <div className="flex p-3 text-xl text-gray-700 space-x-4 0 hover:bg-gray-100 hover:text-blue-600 cursor-pointer">
+                    <div className="flex p-3 text-xl text-gray-700 space-x-4 0 hover:bg-gray-200 hover:text-blue-600 cursor-pointer">
                         <ListAltIcon className="text-gray-300" style={{ color: "purple" }} />
                         <button onClick={() => document.getElementById('NutritionCard').scrollIntoView({ behavior: "smooth", inline: "nearest" })}
                             className='text-gray-600'>Nutrition</button>
                     </div>
                 </div>
                 <div className="">
-                    <div className="flex p-3 text-xl text-gray-700 space-x-4 0 hover:bg-gray-100 hover:text-blue-600 cursor-pointer">
+                    <div className="flex p-3 text-xl text-gray-700 space-x-4 0 hover:bg-gray-200 hover:text-blue-600 cursor-pointer">
                         <ShowChartIcon className="text-gray-300" style={{ color: "purple" }} />
                         <button onClick={() => document.getElementById('CalorieChart').scrollIntoView({ behavior: "smooth", inline: "nearest" })}
                             className='text-gray-600'>Line chart</button>

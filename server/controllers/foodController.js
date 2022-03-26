@@ -79,10 +79,10 @@ foodController.addIntake = async (req, res, next) => {
             ca, chocdf, chole, enerc_kcal, fasat, fat, fe, foldfe,
             k, mg, na, nia, p, procnt, ribf, thia, vitb6a, vitb12,
             vitc, vitd, zn)
-          VALUES ($1, $2, $3, CURRENT_TIMESTAMP, $4, $5, $6, $7, $8, $9, $10,
+          VALUES ($1, $2, $3, TIMESTAMP 'today', $4, $5, $6, $7, $8, $9, $10,
                   $11, $12, $13, $14, $15, $16, $17, $18, $19,
                   $20, $21, $22, $23, $24, $25)
-          RETURNING id, quantity, unit, item, CURRENT_TIMESTAMP, calories,
+          RETURNING id, quantity, unit, item, TIMESTAMP 'today', calories,
           ca, chocdf, chole, enerc_kcal, fasat, fat, fe, foldfe,
           k, mg, na, nia, p, procnt, ribf, thia, vitb6a, vitb12,
           vitc, vitd, zn
@@ -150,10 +150,11 @@ foodController.getLast7DaysCalories = async (req, res, next) => {
     `;
         const data = await db.query(sqlQuery);
         console.log('completed sql query for getLast7DaysCalories');
-        for (let i = 0; i < data.rows.length; i++) {
-            let currDate = new Date(data.rows[i].date)
-            data.rows[i].date = currDate.setDate(currDate.getDate() - 1);
-        }
+        // no need to decrement date by one anymore, now date shows up properly
+        // for (let i = 0; i < data.rows.length; i++) {
+        //     let currDate = new Date(data.rows[i].date)
+        //     data.rows[i].date = currDate.setDate(currDate.getDate() - 1);
+        // }
         res.locals.last7DaysCalories = data.rows;
         return next();
     }
