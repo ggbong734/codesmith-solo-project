@@ -111,7 +111,7 @@ export const AddIntakeForm = ({ intakes, setIntakes }) => {
                 <div className="text-md text-gray-500 mt-1">Unit</div>
             </div>
             <button onClick={() => addIntake()}
-                className="text-lg font-bold text-white py-3 px-2 ml-6 cursor-pointer border rounded-md border-gray-200 bg-blue-400 hover:bg-blue-600 hover:text-white
+                className="text-lg font-bold text-white py-3 px-2 ml-6 mb-5 cursor-pointer border rounded-md border-gray-200 bg-blue-400 hover:bg-blue-600 hover:text-white
                 focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-blue-600
                 transition
                 duration-500 ">Add Intake</button>

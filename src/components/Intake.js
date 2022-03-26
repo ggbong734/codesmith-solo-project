@@ -28,7 +28,7 @@ export const Intake = ({ intake, setIntakes, intakes, bgColor }) => {
                 <div>
                     <span className='text-gray-500 text-lg'>{intake.calories} cals</span>
                     <button onClick={() => deleteIntake(intake.id)}
-                        className="text-xl text-red-300 py-0.5 px-2 ml-6 cursor-pointer border rounded-md border-red-200 bg-red-100 hover:bg-red-400 hover:text-gray-100
+                        className="text-xl text-red-300 py-0.5 px-2 ml-6 cursor-pointer border rounded-md border-red-200 bg-red-100 hover:bg-red-400 hover:text-slate-200
                 focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600
                 transition
                 duration-500 ">x</button>
