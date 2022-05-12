@@ -66,14 +66,14 @@ export const Sidebar = ({ setting, setSetting }) => {
                     <div className="flex p-3 text-xl text-gray-700 space-x-4 0 hover:bg-gray-200 hover:text-blue-600 cursor-pointer">
                         <ShowChartIcon className="text-gray-300" style={{ color: "purple" }} />
                         <button onClick={() => document.getElementById('CalorieChart').scrollIntoView({ behavior: "smooth", inline: "nearest" })}
-                            className='text-gray-600'>Line chart</button>
+                            className='text-gray-600'>History</button>
                     </div>
                 </div>
                 <button
                     type="button"
                     data-mdb-ripple="true"
                     data-mdb-ripple-color="light"
-                    className="inline-block p-3 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out hidden bottom-5 left-5 fixed"
+                    className="inline-block p-4 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out hidden bottom-5 left-5 fixed"
                     id="btn-back-to-top"
                 >
                     <svg
