@@ -6,7 +6,7 @@ export const AddIntakeForm = ({ intakes, setIntakes }) => {
     const [unit, setUnit] = useState('');
     const [item, setItem] = useState('');
 
-    //TODO add intake form post to our backend
+    //DONE TODO add intake form post to our backend
     const addIntake = () => {
         console.log('quantity', quantity);
         console.log('item', item);
